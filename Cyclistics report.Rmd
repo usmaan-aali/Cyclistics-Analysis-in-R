@@ -1,0 +1,87 @@
+---
+title: "Cyclistics_report"
+author: "Usman Shah"
+date: '2022-05-22'
+output: html_document
+---
+
+
+## Cyclistics Bikes Overview
+Cyclistics bikes is a bike renting company. It has three types of bike and multiple stations across the cities for accessibility of people. The compnay has two kind of customers casual rider and annual member. Casual member pays the rent on the spot while the annual member buys the membership of the cyclistics for the whole year.
+
+### Problem on hand
+The stake holders of the cyclistics bikes want to know, how the annual member and casual rider users the service differently? So that, based on the data they can target the specific area to convert the casual riders to annual members.
+
+
+```{r loading packages, include=FALSE}
+library(tidyverse)
+library(lubridate)
+library(dplyr)
+library(scales)
+
+```
+```{r Reading data, include=FALSE}
+avg_ride_length <- read_csv("Cyclistic_Data_CSV/avg_ride_length.csv")
+num_rides_by_day_of_week <- read_csv("Cyclistic_Data_CSV/num_rides_by_day_of_week.csv")
+num_of_rides_by_time_of_day <- read_csv("Cyclistic_Data_CSV/num_rides_by_time_of_day.csv")
+type_of_bike_used_by_user <- read_csv("Cyclistic_Data_CSV/type_of_bike_used_user_type.csv") 
+
+
+```
+
+
+```{r changing column names, include=FALSE}
+colnames(avg_ride_length) <- c("index","member_casual","day_of_week","avg_ride_length")
+colnames(num_rides_by_day_of_week) <- c("member_casual","day_of_week","number_of_rides")
+colnames(num_of_rides_by_time_of_day) <- c("member_casual","time_of_day","number_of_rides")
+colnames(type_of_bike_used_by_user) <- c("member_casual","type_of_ride","number_of_rides")
+```
+
+### Let's analyze the difference of bikes usage between cutomer types
+We have plenty of data about the cyclistics bikes usage but for the difference of bikes usage among customers we will access the data on three points:
+
+1. Average ride time
+2. Total rides by weekday
+3. Total rides by type of bike
+
+### Difference in average ride time
+On average casual user uses the cyclistics bike for more time then the member. Which means the company needs to focus on converting their casual riders to annual members because they create more profit by using less resources.
+
+```{r Average ride time, echo=FALSE}
+avg_ride_length %>% 
+  ggplot(aes(x = day_of_week, y = avg_ride_length, fill = member_casual)) +
+  geom_col(position = "dodge")+
+  scale_y_continuous(labels = label_number(suffix = "K",scale = 1e-3),limits = c(0,2500))+ # Change the values of y axis to millions
+  labs(title = "Average ride time by day of week", y = "avg. ride time (in seconds)", x= "")+  # Renaming title ,x-axis & y-axis
+  theme_bw() #Apply black and white theme
+```
+
+### Difference of total rides by cutomer types
+Annual member has overall most number of rides than casual rider. Casual rider exceeds the annual member on saturday and sunday. This chart shows that annual member has more usage than casual rider on weekly basis.
+
+```{r Total rides for by day of week, echo=FALSE}
+num_rides_by_day_of_week %>%
+  ggplot(aes(x = day_of_week, y = number_of_rides, fill = member_casual))+
+  geom_col(position = "dodge")+
+  scale_y_continuous(labels = label_number(suffix = "M",scale = 1e-6),limits =c(0, 600000))+
+  labs(x = "",title = "Total of rides by day of the week")+
+  theme_bw()
+```
+
+### Difference of total rides by bike type
+Among the three bikes classic bike has the largest number(2M) of rides and it is mostly used by the annual member. On the contrary docked bike has approximately 0.2M rides and is used by casual rider only.
+
+```{r Number of rides by type of bike, echo=FALSE}
+type_of_bike_used_by_user %>% 
+  ggplot(aes(x = type_of_ride, y = number_of_rides, fill = member_casual))+
+  geom_col(position = "dodge")+
+  labs(title = "Number of rides by type of bike", x= "")+
+  coord_flip()+
+  scale_y_continuous(labels = label_number(suffix = "M",scale = 1e-6))+
+  theme_bw()
+```
+
+### Conclusion
+Overall casual rider is using the cyclistics bikes for more time than the annaul member.On the other way annual member preffer  classic bikes than casual rider. Annual member generate more profit for cyclistics, so they need to convince their casual rider to convert to annual member which will increase the company's profit margin.
+
+

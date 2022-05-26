@@ -1,0 +1,6 @@
+data_apr21_mar22_V2$member_casual,data_apr21_mar22_V2$rideable_type,data_apr21_mar22_V2$ride_id
+casual,classic_bike,1257602
+member,classic_bike,1992988
+casual,docked_bike,303956
+casual,electric_bike,984866
+member,electric_bike,1183900
