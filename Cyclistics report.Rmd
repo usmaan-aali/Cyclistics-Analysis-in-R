@@ -1,8 +1,10 @@
 ---
-title: "Cyclistics_report"
-author: "Usman Shah"
-date: '2022-05-22'
-output: html_document
+title: ""
+author: ""
+date: ''
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 
@@ -21,10 +23,9 @@ library(scales)
 
 ```
 ```{r Reading data, include=FALSE}
-avg_ride_length <- read_csv("Cyclistic_Data_CSV/avg_ride_length.csv")
-num_rides_by_day_of_week <- read_csv("Cyclistic_Data_CSV/num_rides_by_day_of_week.csv")
-num_of_rides_by_time_of_day <- read_csv("Cyclistic_Data_CSV/num_rides_by_time_of_day.csv")
-type_of_bike_used_by_user <- read_csv("Cyclistic_Data_CSV/type_of_bike_used_user_type.csv") 
+avg_ride_length <- read_csv("avg_ride_length.csv")
+num_rides_by_day_of_week <- read_csv("num_rides_by_day_of_week.csv")
+type_of_bike_used_by_user <- read_csv("type_of_bike_used_user_type.csv") 
 
 
 ```
@@ -33,11 +34,10 @@ type_of_bike_used_by_user <- read_csv("Cyclistic_Data_CSV/type_of_bike_used_user
 ```{r changing column names, include=FALSE}
 colnames(avg_ride_length) <- c("index","member_casual","day_of_week","avg_ride_length")
 colnames(num_rides_by_day_of_week) <- c("member_casual","day_of_week","number_of_rides")
-colnames(num_of_rides_by_time_of_day) <- c("member_casual","time_of_day","number_of_rides")
 colnames(type_of_bike_used_by_user) <- c("member_casual","type_of_ride","number_of_rides")
 ```
 
-### Let's analyze the difference of bikes usage between cutomer types
+### Let's analyze the difference of bikes usage between customer types
 We have plenty of data about the cyclistics bikes usage but for the difference of bikes usage among customers we will access the data on three points:
 
 1. Average ride time
@@ -82,6 +82,6 @@ type_of_bike_used_by_user %>%
 ```
 
 ### Conclusion
-Overall casual rider is using the cyclistics bikes for more time than the annaul member.On the other way annual member preffer  classic bikes than casual rider. Annual member generate more profit for cyclistics, so they need to convince their casual rider to convert to annual member which will increase the company's profit margin.
+Overall casual rider is using the cyclistics bikes for more time than the annaul member.On the other way annual member preffer  classic bikes than casual rider. Annual member generate more profit for cyclistics, so they have to go out of the way to offer incentives to annual members in areas where the casual rider is dominant. It will help convince their casual rider to convert to annual member which will increase the company's profit margin.
 
 
